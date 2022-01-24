@@ -1,1 +1,8 @@
-/* Styles go here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+nav {
+  @apply shadow-2xl;
+  border-bottom: 0px;
+}
