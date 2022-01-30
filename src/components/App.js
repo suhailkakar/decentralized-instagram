@@ -4,6 +4,23 @@ import Navbar from "./Navbar";
 import "../styles/index.css";
 import Main from "./Main";
 import Decentragram from "../abis/Decentragram.json";
+import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const Wrapper = styled.div`
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 100vh;
+`;
+
+const Loading = styled.img`
+  width: 100px;
+  height: 100px;
+`;
 
 export default function App() {
   const [account, setAccount] = useState(null);
@@ -47,36 +64,25 @@ export default function App() {
         const image = await decentragram.methods.images(i).call();
         setImages((prevState) => [...prevState, image]);
       }
-
       setIsLoading(false);
     } else {
       window.alert("Decentragram contract not deployed to detected network.");
     }
   };
 
-  const captureFile = (event) => {
-    event.preventDefault();
-    const file = event.target.files[0];
-    console.log("asds", file);
-
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onloadend = async () => {
-      console.log("buffer", Buffer(reader.result));
-      setBuffer(Buffer(reader.result));
-    };
-  };
-
   return (
     <>
       {isLoading ? (
-        <p>Loading</p>
+        <Wrapper>
+          <Loading src={require("../images/loading.gif")} alt="loading" />
+        </Wrapper>
       ) : (
         <>
           <Navbar account={account} decetragram={decetragram} />
           <Main images={images} account={account} decetragram={decetragram} />
         </>
       )}
+      <ToastContainer />
     </>
   );
 }

@@ -3,6 +3,89 @@ import styled from "styled-components";
 import photo from "../photo.png";
 import Modal from "react-modal";
 import Icon from "../icon.svg";
+
+const Nav = styled.nav`
+  background-color: #fff;
+  height: 70px;
+  width: 100%;
+
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-right: 20px;
+  box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+`;
+
+const Logo = styled.img`
+  height: 50px;
+  width: auto;
+`;
+
+const OutlinedButton = styled.button`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #fff;
+  color: #333333;
+  font-size: 14px;
+`;
+const Button = styled.button`
+  border: 1px solid #b9a1fc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #b9a1fc;
+  color: #fff;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #fff;
+    color: #b9a1fc;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+`;
+
+const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 20px;
+`;
+
+const ModalParagraph = styled.p`
+  font-size: 18px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+`;
+
+const ImageThumbnail = styled.img`
+  width: 30rem;
+  height: auto;
+  margin-bottom: 20px;
+`;
+
+const DescriptionInput = styled.input`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+`;
+
+const ButtonInput = styled.input`
+  display: none;
+`;
+
 export default function Navbar({ account, decetragram }) {
   const [showModal, setShowModal] = useState(false);
   const [imageDescription, setImageDescription] = useState("");
@@ -18,68 +101,6 @@ export default function Navbar({ account, decetragram }) {
     port: 5001,
     protocol: "https",
   });
-  const Nav = styled.nav`
-    background-color: #fff;
-    height: 70px;
-    width: 100%;
-
-    top: 0;
-    left: 0;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    margin-right: 20px;
-    box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-  `;
-
-  const Logo = styled.img`
-    height: 50px;
-    width: auto;
-  `;
-
-  const OutlinedButton = styled.button`
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-left: 10px;
-    background-color: #fff;
-    color: #333333;
-    font-size: 14px;
-  `;
-  const Button = styled.button`
-    border: 1px solid #b9a1fc;
-    border-radius: 5px;
-    padding: 10px 20px;
-    background-color: #b9a1fc;
-    color: #fff;
-    font-size: 14px;
-
-    &:hover {
-      background-color: #fff;
-      color: #b9a1fc;
-      transition: 0.5s;
-      cursor: pointer;
-    }
-  `;
-
-  const ModalWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    padding: 20px;
-  `;
-
-  const ModalParagraph = styled.p`
-    font-size: 18px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  `;
 
   const handleFileUpload = (event) => {
     event.preventDefault();
@@ -110,25 +131,6 @@ export default function Navbar({ account, decetragram }) {
       transform: "translate(-50%, -50%)",
     },
   };
-
-  const ImageThumbnail = styled.img`
-    width: 30rem;
-    height: auto;
-    margin-bottom: 20px;
-  `;
-
-  const DescriptionInput = styled.input`
-    width: 100%;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-  `;
-
-  const ButtonInput = styled.input`
-    display: none;
-  `;
 
   const uploadImage = async () => {
     console.log("buffer", buffer);
