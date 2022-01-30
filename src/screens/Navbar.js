@@ -3,6 +3,7 @@ import styled from "styled-components";
 import photo from "../photo.png";
 import Modal from "react-modal";
 import Icon from "../icon.svg";
+import { toast } from "react-toastify";
 
 const Nav = styled.nav`
   background-color: #fff;
@@ -133,18 +134,28 @@ export default function Navbar({ account, decetragram }) {
   };
 
   const uploadImage = async () => {
-    console.log("buffer", buffer);
-    ipfs.add(buffer, (err, result) => {
-      console.log("ipfs", result);
-      if (err) {
-        console.error(err);
-        return;
-      }
-      decetragram.methods
-        .uploadImage(result[0].hash, imageDescription)
-        .send({ from: account });
-      // window.location.reload();
-    });
+    if (imageDescription === "") {
+      toast.error("Caption is a required field", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } else {
+      console.log("buffer", buffer);
+      ipfs.add(buffer, (err, result) => {
+        console.log("ipfs", result);
+        if (err) {
+          console.error(err);
+          return;
+        }
+        decetragram.methods
+          .uploadImage(result[0].hash, imageDescription)
+          .send({ from: account });
+      });
+    }
   };
   return (
     <>

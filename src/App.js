@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
-import Navbar from "./Navbar";
-import "../styles/index.css";
-import Main from "./Main";
-import Decentragram from "../abis/Decentragram.json";
+import Navbar from "./screens/Navbar";
+import "./styles/index.css";
+import Main from "./screens/Main";
+import Decentragram from "./abis/Decentragram.json";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LandingPage from "./screens/LandingPage";
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,11 +31,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
-    connectAccount();
+    checkWallet();
     await loadBlockchainData();
   }, []);
 
-  const connectAccount = async () => {
+  const checkWallet = async () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
@@ -50,6 +51,7 @@ export default function App() {
     // Load account
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
+
     // Network ID
     const networkId = await web3.eth.net.getId();
     const networkData = Decentragram.networks[networkId];
@@ -72,15 +74,13 @@ export default function App() {
 
   return (
     <>
-      {isLoading ? (
-        <Wrapper>
-          <Loading src={require("../images/loading.gif")} alt="loading" />
-        </Wrapper>
-      ) : (
+      {account ? (
         <>
           <Navbar account={account} decetragram={decetragram} />
           <Main images={images} account={account} decetragram={decetragram} />
         </>
+      ) : (
+        <LandingPage />
       )}
       <ToastContainer />
     </>

@@ -80,7 +80,6 @@ export default function Main(props) {
   const tipToAuthor = (author, index) => {
     console.log("tipToAuthor", author, index);
     let tipAmount = window.web3.utils.toWei("0.1", "Ether");
-
     props.decetragram.methods
       .tipImageOwner(index)
       .send({ from: props.account, value: tipAmount })
@@ -105,8 +104,7 @@ export default function Main(props) {
           </p>
           <Footer>
             <GrayAddress>
-              Total Tips:{" "}
-              {window.web3.utils.fromWei(image.tipAmount.toString(), "Ether")}{" "}
+              Total Tips: {image.tipAmount.toString()}
               ETH
             </GrayAddress>
             <LongButton
