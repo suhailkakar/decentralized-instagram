@@ -66,6 +66,7 @@ export default function App() {
         const image = await decentragram.methods.images(i).call();
         setImages((prevState) => [...prevState, image]);
       }
+
       setIsLoading(false);
     } else {
       window.alert("Decentragram contract not deployed to detected network.");
@@ -77,7 +78,11 @@ export default function App() {
       {account ? (
         <>
           <Navbar account={account} decetragram={decetragram} />
-          <Main images={images} account={account} decetragram={decetragram} />
+          <Main
+            images={images.sort((a, b) => b.tipAmount - a.tipAmount)}
+            account={account}
+            decetragram={decetragram}
+          />
         </>
       ) : (
         <LandingPage />

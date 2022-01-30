@@ -4,7 +4,7 @@ import photo from "../photo.png";
 import Modal from "react-modal";
 import Icon from "../icon.svg";
 import { toast } from "react-toastify";
-
+import logo from "../images/logo.png";
 const Nav = styled.nav`
   background-color: #fff;
   height: 70px;
@@ -18,9 +18,14 @@ const Nav = styled.nav`
   align-items: center;
   padding: 0 20px;
   margin-right: 20px;
-  box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+
+  -webkit-box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+  -moz-box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+  box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+
+  ${"" /* box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1); */}
 `;
 
 const Logo = styled.img`
@@ -38,16 +43,16 @@ const OutlinedButton = styled.button`
   font-size: 14px;
 `;
 const Button = styled.button`
-  border: 1px solid #b9a1fc;
+  border: 1px solid #24a9f9;
   border-radius: 5px;
   padding: 10px 20px;
-  background-color: #b9a1fc;
+  background-color: #24a9f9;
   color: #fff;
   font-size: 14px;
 
   &:hover {
     background-color: #fff;
-    color: #b9a1fc;
+    color: #24a9f9;
     transition: 0.5s;
     cursor: pointer;
   }
@@ -160,7 +165,7 @@ export default function Navbar({ account, decetragram }) {
   return (
     <>
       <Nav>
-        <Logo src={"https://i.ibb.co/Lx5Gck6/Untitled-design.png"} />
+        <Logo src={`${logo}`} alt="logo" />
         <div>
           <Button onClick={() => setShowModal(true)}>Upload Image</Button>
           <OutlinedButton>{account ? "• Connected" : "Login"}</OutlinedButton>

@@ -9,7 +9,7 @@ const PostWrapper = styled.div`
   justify-content: center;
   margin-top: 10px;
 
-  width: 50%;
+  width: 35%;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -24,12 +24,13 @@ const Post = styled.div`
   flex-direction: column;
   justify-content: center;
   background-color: #fff;
-  box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 5px 5px 44px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+  -moz-box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+  box-shadow: 0px 0px 11px -1px rgba(184, 184, 184, 1);
+
   margin-top: 30px;
-  padding-top: 10px;
-  padding-bottom: 5px;
+
   border-bottom: 1px solid #ccc;
 `;
 
@@ -50,16 +51,17 @@ const LongButton = styled.button`
 
 const Header = styled.div`
   display: flex;
+
   flex-direction: row;
-  padding-bottom: 10px;
+  padding: 10px;
 
   align-items: center;
 `;
 
 const ProfileImage = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+
   border-radius: 50%;
   margin-right: 10px;
 `;
@@ -76,6 +78,12 @@ const GrayAddress = styled.p`
   font-size: 12px;
 `;
 
+const PostDescription = styled.p`
+  font-size: 14px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+`;
+
 export default function Main(props) {
   const tipToAuthor = (author, index) => {
     console.log("tipToAuthor", author, index);
@@ -85,7 +93,6 @@ export default function Main(props) {
       .send({ from: props.account, value: tipAmount })
       .on("transactionHash", (hash) => {
         console.log("hash", hash);
-        window.location.reload();
       });
   };
 
@@ -95,21 +102,24 @@ export default function Main(props) {
         <Post key={key}>
           <Header>
             <ProfileImage
-              src={`https://identicon-api.herokuapp.com/${Math.random()}/512?format=png`}
+              src={
+                "https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg"
+              }
             />
             <GrayAddress>{image.author}</GrayAddress>
           </Header>
-          <p class="text-center">
-            <Image src={`https://ipfs.infura.io/ipfs/${image.hash}`} />
-          </p>
+          <PostDescription>{image.description}</PostDescription>
+          <Image src={`https://ipfs.infura.io/ipfs/${image.hash}`} />
           <Footer>
             <GrayAddress>
-              Total Tips: {image.tipAmount.toString()}
+              Total Tips:{" "}
+              {window.web3.utils.fromWei(image.tipAmount.toString(), "Ether")}{" "}
               ETH
             </GrayAddress>
             <LongButton
+              name={image.id}
               onClick={() => {
-                tipToAuthor(image.author, key);
+                tipToAuthor(image.author, image.id);
               }}
             >
               <AiOutlineDollar
