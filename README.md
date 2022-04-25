@@ -1,6 +1,6 @@
 <p align="center">
     <img width="150" height="auto" src="./src/images/logo.png" alt="Instagram Logo" />
-    <h1>Decentralized Instagram </h1>
+    <h1>Decentralized Instagram</h1>
 </p>
 
 ### Built With
